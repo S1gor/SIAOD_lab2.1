@@ -31,6 +31,17 @@ void PrintSofrware(Node* node, bool supported_only, bool free_only)
     }
 }
 
+void DestructTree(Node* root)
+{
+    for (Node* child : root->children)
+    {
+        for (Node* grandchild : child->children)
+            delete grandchild;
+        delete child;
+    }
+    delete root;
+}
+
 int main()
 {
     Node* root = new Node{ "Software", true, false, false, "", "",
@@ -66,15 +77,9 @@ int main()
     cout << "Communication software (free only)" << endl;
     PrintSofrware(root->children[2], false, true);
 
-    cout << "Development software (supported and paid)" << endl;
-    PrintSofrware(root->children[3], true, false);
+    cout << "Development software (all)" << endl;
+    PrintSofrware(root->children[3], false, false);
 
-    for (Node* child : root->children)
-    {
-        for (Node* grandchild : child->children)
-            delete grandchild;
-        delete child;
-    }
-    delete root;
+    DestructTree(root);
     return 0;
 }
