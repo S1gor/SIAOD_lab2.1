@@ -20,14 +20,11 @@ void PrintSofrware(Node* node, bool supported_only, bool free_only)
     if (node->is_category)
         for (Node* child : node->children)
             PrintSofrware(child, supported_only, free_only);
-    else
+    else if ((!supported_only || node->is_supported) && (!free_only || node->is_free))
     {
-        if ((!supported_only || node->is_supported) && (!free_only || node->is_free))
-        {
-            cout << "Name: " << node->name << endl << "Supported: " << (node->is_supported ? "Yes" : "No") << endl
-                 << "Free: " << (node->is_free ? "Yes" : "No") << endl << "Website: " << node->website << endl
-                 << "Latest version: " << node->latest_version << endl << endl;
-        }
+        cout << "Name: " << node->name << endl << "Supported: " << (node->is_supported ? "Yes" : "No") << endl
+            << "Free: " << (node->is_free ? "Yes" : "No") << endl << "Website: " << node->website << endl
+            << "Latest version: " << node->latest_version << endl << endl;
     }
 }
 
